@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeCraft - 留学生一站式学术服务中心</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        /* Header - 强烈视觉冲击 */
+        header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 100px 20px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        header h1 { 
+            font-size: 3em; 
+            margin-bottom: 20px; 
+            position: relative; 
+            text-shadow: 0 3px 15px rgba(0,0,0,0.3);
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        header .subtitle { 
+            font-size: 1.6em; 
+            opacity: 0.98; 
+            margin-bottom: 40px; 
+            position: relative;
+            font-weight: 500;
+        }
+        .stats { 
+            display: flex; 
+            justify-content: center; 
+            gap: 50px; 
+            margin-top: 50px; 
+            flex-wrap: wrap; 
+            position: relative; 
+        }
+        .stat { 
+            background: rgba(255,255,255,0.2); 
+            backdrop-filter: blur(10px); 
+            padding: 30px 40px; 
+            border-radius: 20px; 
+            min-width: 180px; 
+            border: 2px solid rgba(255,255,255,0.4);
+            transition: all 0.3s;
+        }
+        .stat:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.3);
+        }
+        .stat strong { 
+            font-size: 2.5em; 
+            display: block; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            font-weight: 900;
+        }
+        .stat span { 
+            font-size: 1em; 
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        /* CTA Buttons - 高对比度促进行动 */
+        .cta-button { 
+            display: inline-block; 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%); 
+            color: white; 
+            padding: 22px 55px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-size: 1.35em; 
+            font-weight: 800;
+            margin-top: 40px; 
+            transition: all 0.4s; 
+            box-shadow: 0 10px 30px rgba(255,107,107,0.5);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+        }
+        .cta-button:hover { 
+            transform: translateY(-8px) scale(1.05); 
+            box-shadow: 0 20px 50px rgba(255,107,107,0.7);
+        }
+        .cta-button:active {
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        /* Sections */
+        section { padding: 100px 20px; }
+        section:nth-child(even) { background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); }
+        section h2 { 
+            text-align: center; 
+            font-size: 2.8em; 
+            margin-bottom: 60px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        section h3 { 
+            color: #667eea; 
+            margin: 40px 0 20px; 
+            font-weight: 800;
+            font-size: 1.8em;
+        }
+        
+        /* Featured Services - 强烈视觉层次 */
+        .featured-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+            gap: 50px; 
+            margin-bottom: 60px; 
+        }
+        .featured-card { 
+            background: white; 
+            border-radius: 30px; 
+            overflow: hidden; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15); 
+            transition: all 0.5s; 
+            border: 4px solid transparent;
+            position: relative;
+        }
+        .featured-card:hover { 
+            transform: translateY(-15px) scale(1.03); 
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+        }
+        .featured-card.hot { border-color: #ff4757; }
+        .hot-badge { 
+            position: absolute; 
+            top: 25px; 
+            right: 25px; 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%); 
+            color: white; 
+            padding: 10px 25px; 
+            border-radius: 30px; 
+            font-size: 0.95em; 
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.5);
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .card-header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 40px; 
+        }
+        .card-header h3 { 
+            color: white; 
+            margin: 0; 
+            font-size: 1.8em; 
+            font-weight: 800; 
+        }
+        .card-body { padding: 40px; }
+        .card-body ul { list-style: none; margin: 30px 0; }
+        .card-body ul li { 
+            padding: 15px 0; 
+            border-bottom: 2px solid #f0f0f0; 
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+        .card-body ul li:before { 
+            content: "✅"; 
+            font-size: 1.3em; 
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .card-body p { font-size: 1.1em; color: #555; font-weight: 500; }
+        .promo-text { 
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+            color: #92400e; 
+            padding: 18px 25px; 
+            border-radius: 15px; 
+            font-weight: 700;
+            margin-top: 25px;
+            border: 3px solid #f59e0b;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        
+        /* All Services Table */
+        .services-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: white; 
+            border-radius: 25px; 
+            overflow: hidden; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+            font-size: 1.05em;
+        }
+        .services-table th { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 30px; 
+            text-align: left; 
+            font-weight: 800; 
+            font-size: 1.15em; 
+        }
+        .services-table td { 
+            padding: 25px; 
+            border-bottom: 2px solid #eee;
+            font-size: 1.05em;
+        }
+        .services-table tr:hover { 
+            background: linear-gradient(90deg, #f0f9ff 0%, #ffffff 100%); 
+            transform: scale(1.01);
+            transition: all 0.3s;
+        }
+        .services-table tr.highlight { 
+            background: linear-gradient(90deg, #fef3c7 0%, #fffbeb 100%); 
+            border-left: 5px solid #f59e0b;
+        }
+        .services-table tr.highlight td { font-weight: 700; }
+        
+        /* Features */
+        .features-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+        }
+        .feature { 
+            background: white; 
+            padding: 45px 35px; 
+            border-radius: 25px; 
+            text-align: center; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12); 
+            transition: all 0.4s;
+            border: 3px solid transparent;
+        }
+        .feature:hover { 
+            transform: translateY(-12px); 
+            border-color: #667eea;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+        }
+        .feature-icon { 
+            font-size: 4em; 
+            margin-bottom: 25px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .feature:hover .feature-icon {
+            animation: none;
+            transform: scale(1.2);
+        }
+        .feature h4 { 
+            color: #667eea; 
+            margin-bottom: 18px; 
+            font-size: 1.5em; 
+            font-weight: 800; 
+        }
+        .feature p { color: #666; line-height: 1.9; font-size: 1.05em; }
+        
+        /* Cases */
+        .cases-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+            gap: 40px; 
+        }
+        .case-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12); 
+            border-left: 8px solid #667eea;
+            transition: all 0.4s;
+        }
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+            border-left-color: #10b981;
+        }
+        .case-type { 
+            display: inline-block; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 10px 25px; 
+            border-radius: 30px; 
+            font-size: 0.9em; 
+            font-weight: 800; 
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        .case-school { 
+            font-size: 1.4em; 
+            font-weight: 800; 
+            color: #333; 
+            margin-bottom: 15px; 
+        }
+        .case-result { 
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); 
+            color: #065f46; 
+            padding: 22px; 
+            border-radius: 15px; 
+            margin-top: 22px; 
+            font-weight: 800;
+            border: 3px solid #10b981;
+            font-size: 1.05em;
+            box-shadow: 0 5px 20px rgba(16,185,129,0.2);
+        }
+        
+        /* WeChat Section - 强烈视觉冲击，促进转化 */
+        .wechat-section { 
+            background: linear-gradient(135deg, #07C160 0%, #05a850 100%); 
+            color: white; 
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .wechat-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .wechat-section h2 { 
+            color: white; 
+            text-shadow: 0 3px 15px rgba(0,0,0,0.3);
+            font-size: 3em;
+            font-weight: 900;
+        }
+        .wechat-box { 
+            background: white; 
+            color: #333; 
+            padding: 70px 60px; 
+            border-radius: 35px; 
+            max-width: 700px; 
+            margin: 0 auto; 
+            text-align: center; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 10;
+            border: 5px solid rgba(255,255,255,0.3);
+        }
+        .wechat-box h3 { 
+            color: #07C160; 
+            font-size: 2.3em; 
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        .wechat-box .subtitle { 
+            color: #666; 
+            font-size: 1.2em; 
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .wechat-id { 
+            font-size: 3.2em; 
+            font-weight: 900; 
+            color: #07C160; 
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); 
+            padding: 30px 60px; 
+            border-radius: 25px; 
+            display: inline-block; 
+            margin: 35px 0; 
+            font-family: 'Courier New', monospace;
+            border: 4px solid #07C160;
+            box-shadow: 0 15px 40px rgba(7,193,96,0.3);
+            letter-spacing: 3px;
+            transition: all 0.3s;
+        }
+        .wechat-id:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(7,193,96,0.4);
+        }
+        .qr-placeholder { 
+            width: 260px; 
+            height: 260px; 
+            background: white; 
+            margin: 40px auto; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 25px; 
+            border: 5px solid #07C160;
+            box-shadow: 0 20px 50px rgba(7,193,96,0.4);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .qr-placeholder:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(7,193,96,0.5);
+        }
+        .qr-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+        .benefits-box { 
+            text-align: left; 
+            margin-top: 40px; 
+            padding: 35px; 
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); 
+            border-radius: 25px;
+            border: 3px solid #07C160;
+            box-shadow: 0 10px 30px rgba(7,193,96,0.2);
+        }
+        .benefits-box strong { 
+            color: #07C160; 
+            font-size: 1.5em; 
+            display: block; 
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        .benefits-box ul { margin: 0; padding-left: 10px; list-style: none; }
+        .benefits-box li { 
+            color: #333; 
+            margin: 18px 0; 
+            font-size: 1.1em;
+            padding-left: 35px;
+            position: relative;
+            font-weight: 600;
+        }
+        .benefits-box li:before { 
+            content: "🎁";
+            position: absolute;
+            left: 0;
+            font-size: 1.3em;
+        }
+        .response-promise { 
+            margin-top: 40px; 
+            padding: 25px; 
+            background: rgba(255,255,255,0.2); 
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255,255,255,0.4);
+        }
+        .response-promise strong { 
+            color: #fff; 
+            font-size: 1.4em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .response-promise p { 
+            color: rgba(255,255,255,0.95); 
+            margin: 0; 
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+        
+        /* Free Resources */
+        .resources-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 35px; 
+        }
+        .resource-card { 
+            background: white; 
+            padding: 35px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            transition: all 0.4s;
+            border: 3px solid transparent;
+            cursor: pointer;
+        }
+        .resource-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+        }
+        .resource-card h4 { 
+            color: #667eea; 
+            margin-bottom: 15px; 
+            font-size: 1.4em; 
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .resource-card h4:before {
+            content: "📦";
+            font-size: 1.2em;
+        }
+        .resource-card p { color: #666; margin-bottom: 20px; font-size: 1.05em; }
+        .resource-code { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 12px 25px; 
+            border-radius: 12px; 
+            font-family: monospace; 
+            font-weight: 800; 
+            display: inline-block;
+            font-size: 1.05em;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        
+        /* Footer */
+        footer { 
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); 
+            color: white; 
+            text-align: center; 
+            padding: 70px 20px;
+        }
+        footer p { margin: 15px 0; opacity: 0.95; font-size: 1.1em; }
+        footer a { color: #667eea; text-decoration: none; font-weight: 700; }
+        footer a:hover { color: #764ba2; }
+        
+        /* Notice */
+        .notice { 
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); 
+            border: 4px solid #f59e0b; 
+            padding: 30px; 
+            border-radius: 20px; 
+            margin: 50px auto; 
+            max-width: 900px; 
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(245,158,11,0.3);
+        }
+        .notice strong { color: #92400e; font-size: 1.15em; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.3em; }
+            .subtitle { font-size: 1.3em !important; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .stats { gap: 25px; }
+            .stat { min-width: 150px; padding: 25px 30px; }
+            .wechat-box { padding: 50px 30px; }
+            .wechat-id { font-size: 2.2em; padding: 25px 40px; }
+            .qr-placeholder { width: 220px; height: 220px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎓 GradeCraft - 留学生一站式学术服务中心</h1>
+        <p class="subtitle">从 A-Level 到求职，全程陪伴你的留学之路</p>
+        <div class="stats">
+            <div class="stat"><strong>1000+</strong><span>✅ 成功案例</span></div>
+            <div class="stat"><strong>98%</strong><span>⭐ 满意度</span></div>
+            <div class="stat"><strong>24h</strong><span>⚡ 在线响应</span></div>
+        </div>
+        <a href="#wechat" class="cta-button" onclick="document.getElementById('wechat').scrollIntoView({behavior: 'smooth'}); return false;">🎁 免费评估 + 领取资料包</a>
+    </header>
+
+    <section class="container">
+        <h2>🔥 核心服务（重点推荐）</h2>
+        
+        <div class="featured-grid">
+            <!-- 论文辅导 -->
+            <div class="featured-card hot">
+                <span class="hot-badge">⭐ 热门</span>
+                <div class="card-header">
+                    <h3>📖 留学课业 & 论文辅导</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>🎯 适合：</strong>所有留学生，尤其是课业压力大、论文困难的学生</p>
+                    <ul>
+                        <li>课程作业辅导（商科/理工科/文科）</li>
+                        <li>学术论文指导（Essay/Dissertation/Thesis）</li>
+                        <li>数据分析辅导（R/Python/Stata/SPSS）</li>
+                        <li>论文润色修改（语言 + 结构 + 逻辑）</li>
+                        <li>考前冲刺辅导</li>
+                    </ul>
+                    <div class="promo-text">💰 首单 9 折 | 📞 免费评估报价</div>
+                    <a href="#wechat" class="cta-button" style="padding: 18px 45px; font-size: 1.15em; margin-top: 30px; width: 100%;" onclick="document.getElementById('wechat').scrollIntoView({behavior: 'smooth'}); return false;">🔥 免费评估 →</a>
+                </div>
+            </div>
+
+            <!-- 课程辅导 -->
+            <div class="featured-card hot">
+                <span class="hot-badge">⭐ 热门</span>
+                <div class="card-header">
+                    <h3>🔄 全程伴读 & 课程辅导</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>🎯 适合：</strong>需要长期稳定辅导、GPA 提升需求的学生</p>
+                    <ul>
+                        <li>学期全程伴读（10-12 周）</li>
+                        <li>每周定期辅导（1-3 次/周）</li>
+                        <li>课前预习 + 课后复习</li>
+                        <li>作业全程指导</li>
+                        <li>考前系统复习 + 学习报告</li>
+                    </ul>
+                    <div class="promo-text">💰 首学期立减¥1000 | 📞 免费定制方案</div>
+                    <a href="#wechat" class="cta-button" style="padding: 18px 45px; font-size: 1.15em; margin-top: 30px; width: 100%;" onclick="document.getElementById('wechat').scrollIntoView({behavior: 'smooth'}); return false;">🔥 免费定制方案 →</a>
+                </div>
+            </div>
+        </div>
+
+        <h3>📋 全部服务</h3>
+        <table class="services-table">
+            <thead>
+                <tr>
+                    <th>🎯 服务类别</th>
+                    <th>📚 具体内容</th>
+                    <th>👥 适合人群</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>🎓 国际高中 & A-Level</td>
+                    <td>A-Level/IB/AP 全科辅导，国际学校课程</td>
+                    <td>国际高中学生</td>
+                </tr>
+                <tr>
+                    <td>✍️ 留学文书/DIY</td>
+                    <td>PS/CV/RL 撰写润色，申请文书全套</td>
+                    <td>DIY 申请学生</td>
+                </tr>
+                <tr>
+                    <td>🎯 本科硕士申请</td>
+                    <td>选校定位、申请策略、面试辅导</td>
+                    <td>准备申请的学生</td>
+                </tr>
+                <tr class="highlight">
+                    <td>📖 课业/论文辅导</td>
+                    <td>作业辅导、论文指导、数据分析</td>
+                    <td><strong>所有留学生</strong></td>
+                </tr>
+                <tr>
+                    <td>⚠️ 挂科申诉</td>
+                    <td>申诉信撰写、转专业咨询</td>
+                    <td>挂科/想转专业学生</td>
+                </tr>
+                <tr>
+                    <td>🚀 背景提升</td>
+                    <td>实习推荐、竞赛辅导、论文发表</td>
+                    <td>需要提升背景</td>
+                </tr>
+                <tr>
+                    <td>💼 求职辅导</td>
+                    <td>简历修改、面试辅导、笔试准备</td>
+                    <td>求职留学生</td>
+                </tr>
+                <tr class="highlight">
+                    <td>🔄 全程伴读</td>
+                    <td>学期伴读、课程辅导、定期反馈</td>
+                    <td><strong>长期辅导需求</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="container">
+        <h2>✅ 为什么选择 GradeCraft</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h4>专业师资团队</h4>
+                <p>G5/八大/Top30 名校硕博<br>同专业匹配，5 年 + 经验</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📚</div>
+                <h4>成功案例积累</h4>
+                <p>1000+ 学员，98% 满意度<br>平均提分 1.5 个等级</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h4>高效服务响应</h4>
+                <p>24 小时在线，5 分钟响应<br>紧急辅导 48 小时完成</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h4>安全保障</h4>
+                <p>学术诚信，隐私保护<br>不满意全额退款</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>📈 精选案例</h2>
+        <div class="cases-grid">
+            <div class="case-card">
+                <span class="case-type">📖 论文辅导</span>
+                <div class="case-school">🎓 LSE 金融硕士</div>
+                <p><strong>困难：</strong>Dissertation 实证分析不会，Stata 代码不会写</p>
+                <p><strong>辅导：</strong>12 周系统指导，从选题到终稿</p>
+                <div class="case-result">✅ 结果：78 分（Distinction），优秀毕业论文提名</div>
+            </div>
+            <div class="case-card">
+                <span class="case-type">🔄 课程辅导</span>
+                <div class="case-school">🎓 UCL 经济本科</div>
+                <p><strong>困难：</strong>大一 GPA 2:2，多门课程低分</p>
+                <p><strong>辅导：</strong>学期伴读，每周 3 次，持续 10 周</p>
+                <div class="case-result">✅ 结果：第三学期全部 1st，毕业论文 82 分</div>
+            </div>
+            <div class="case-card">
+                <span class="case-type">🎯 申请辅导</span>
+                <div class="case-school">🎓 A-Level 学生</div>
+                <p><strong>目标：</strong>牛津 Economics & Management</p>
+                <p><strong>服务：</strong>选校定位 + 文书润色 + 面试辅导</p>
+                <div class="case-result">✅ 结果：拿到牛津 Offer</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>🎁 免费资料包</h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h4>论文写作包</h4>
+                <p>模板 + 学术短语 + 格式指南</p>
+                <span class="resource-code">暗号："论文包"</span>
+            </div>
+            <div class="resource-card">
+                <h4>统计分析包</h4>
+                <p>R/Stata/Python 教程 + 代码</p>
+                <span class="resource-code">暗号："统计包"</span>
+            </div>
+            <div class="resource-card">
+                <h4>文书模板包</h4>
+                <p>PS/CV/RL 模板 + 范例</p>
+                <span class="resource-code">暗号："文书包"</span>
+            </div>
+            <div class="resource-card">
+                <h4>申请指南包</h4>
+                <p>选校策略 + 时间规划</p>
+                <span class="resource-code">暗号："申请包"</span>
+            </div>
+            <div class="resource-card">
+                <h4>求职准备包</h4>
+                <p>简历模板 + 面试题库</p>
+                <span class="resource-code">暗号："求职包"</span>
+            </div>
+            <div class="resource-card">
+                <h4>时间管理包</h4>
+                <p>Notion 模板 + 计划表</p>
+                <span class="resource-code">暗号："时间包"</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="wechat" class="wechat-section">
+        <div class="container">
+            <h2>📞 立即咨询 - 免费评估</h2>
+            <div class="wechat-box">
+                <h3>📱 添加微信 立即咨询</h3>
+                <p class="subtitle">专业顾问一对一，5 分钟内响应</p>
+                
+                <div class="wechat-id">R1015956206</div>
+                
+                <div class="qr-placeholder">
+                    <img src="/static/images/wechat-qr.png" alt="微信二维码" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size: 5em; margin-bottom: 15px;\'>📱</div><div style=\'font-weight: bold; color: #07C160; font-size: 1.3em;\'>请放置二维码图片</div><div style=\'font-size: 0.95em; margin-top: 15px; color: #666;\'>文件位置：<br>static/images/wechat-qr.png</div>'">
+                </div>
+                
+                <div class="benefits-box">
+                    <strong>🎁 新客户专属福利（限时）</strong>
+                    <ul>
+                        <li>免费学习水平评估（价值¥299）</li>
+                        <li>免费申请方案规划（价值¥599）</li>
+                        <li>首单辅导 9 折优惠</li>
+                        <li>前 10 名送 1 小时免费辅导（价值¥500）</li>
+                        <li>免费领取 6 大学术资料包（价值¥999）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="response-promise">
+                <strong>⏰ 响应承诺</strong>
+                <p>5 分钟内回复 · 紧急需求优先处理 · 24 小时在线</p>
+            </div>
+            
+            <div class="notice">
+                <strong>⚠️ 预览说明：</strong>这是本地预览页面，最终网站将使用 Hugo 生成，功能更完整。
+                <br>微信号：<strong>R1015956206</strong>
+                <br>邮箱：<strong>ren_shuai_hi@126.com</strong>
+                <br><strong>请放置微信二维码图片到：</strong>static/images/wechat-qr.png
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 GradeCraft - 留学生一站式学术服务中心</p>
+        <p>📱 微信：R1015956206 &nbsp;&nbsp;|&nbsp;&nbsp; 📧 邮箱：ren_shuai_hi@126.com &nbsp;&nbsp;|&nbsp;&nbsp; ⏰ 24 小时在线</p>
+        <p style="margin-top: 25px; font-size: 1em; opacity: 0.8;">
+            <a href="#">服务条款</a> &nbsp;|&nbsp; <a href="#">隐私政策</a> &nbsp;|&nbsp; <a href="#">联系我们</a>
+        </p>
+    </footer>
+</body>
+</html>

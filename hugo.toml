@@ -1,0 +1,128 @@
+# Hugo 配置文件 - 留学生商科辅导网站
+baseURL = "https://gradecraft.io/"
+title = "GradeCraft - 商科留学生课业辅导专家"
+languageCode = "zh-CN"
+defaultContentLanguage = "zh"
+theme = "PaperMod"
+
+# SEO 优化
+enableRobotsTXT = true
+enableEmoji = true
+
+# 网站地图
+sitemap:
+  changefreq: "weekly"
+  filename: "sitemap.xml"
+  priority: 0.5
+
+# 输出格式
+outputs:
+  home: ["HTML", "RSS", "JSON"]
+
+# 菜单配置
+menu:
+  main:
+    - name: "首页"
+      url: "/"
+      weight: 1
+    - name: "辅导服务"
+      url: "/services/"
+      weight: 2
+    - name: "成功案例"
+      url: "/cases/"
+      weight: 3
+    - name: "免费资料"
+      url: "/resources/"
+      weight: 4
+    - name: "学习博客"
+      url: "/blog/"
+      weight: 5
+    - name: "联系咨询"
+      url: "/contact/"
+      weight: 6
+
+# PaperMod 主题配置
+params:
+  # 网站信息
+  description: "商科留学生课业辅导专家 | 统计/经济/金融/会计 | 500+ 成功案例 | GPA 提升保障"
+  keywords: ["商科辅导", "留学生 tutoring", "统计作业", "经济学辅导", "金融辅导", "会计辅导", "论文指导"]
+  
+  # 首页配置
+  homeInfoParams:
+    Title: "🎓 商科留学生课业辅导专家"
+    Content: >
+      专注商科留学生课业辅导，包括统计学、经济学、金融学、会计学等科目。
+      
+      **500+ 成功案例 | 98% 满意度 | GPA 从 2.5 到 3.8**
+      
+      添加微信免费领取《商科学习资料包》，包含论文模板、统计工具、历年真题。
+      
+      👉 **限时优惠：前 10 名咨询送 1 小时免费辅导**
+
+  # 社交链接
+  socialIcons:
+    - name: "wechat"
+      url: "wechat://R1015956206"
+    - name: "email"
+      url: "mailto:contact@R1015956206.io"
+
+  # SEO 和 分析
+  env: "production"
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButton: true
+
+  # 评论系统（可选）
+  # comments:
+  #   provider: "giscus"
+
+  # 资产配置
+  assets:
+    disableHLJS: false
+    # favicon: "<link / abs url>"
+    # favicon16x16: "<link / abs url>"
+    # apple_touch_icon: "<link / abs url>"
+    # safari_pinned_tab: "<link / abs url>"
+
+  # 封面配置
+  cover:
+    hiddenInList: false
+    hiddenInSingle: true
+
+  # 搜索配置
+  SearchHidden: true
+
+# 黑化模式
+params:
+  defaultTheme: "light"
+
+# 隐私配置
+privacy:
+  vimeo:
+    disabled: true
+  twitter:
+    disabled: true
+  instagram:
+    disabled: true
+  youtube:
+    disabled: true
+
+# 标记配置
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+
+# 输出配置
+outputs:
+  page:
+    - "HTML"
+  home:
+    - "HTML"
+    - "RSS"
+    - "JSON"
